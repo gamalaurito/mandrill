@@ -1245,9 +1245,9 @@
     };
 
     /*
-        Search the content of recently sent messages and optionally narrow by date range, tags and senders
+        Search recently sent messages and optionally narrow by date range, tags, senders, and API keys. If no date range is specified, results within the last 7 days are returned. This method may be called up to 20 times per minute. If you need the data more often, you can use <a href="/api/docs/messages.html#method=info">/messages/info.json</a> to get the information for a single message, or <a href="http://help.mandrill.com/entries/21738186-Introduction-to-Webhooks">webhooks</a> to push activity to your own application for querying.
         @param {Object} params the hash of the parameters to pass to the request
-        @option params {String} query the search terms to find matching messages for
+        @option params {String} query <a href="http://help.mandrill.com/entries/22211902">search terms</a> to find matching messages
         @option params {String} date_from start date
         @option params {String} date_to end date
         @option params {Array} tags an array of tag names to narrow the search to, will return messages that contain ANY of the tags
@@ -1532,12 +1532,14 @@
     automatically.
         @param {Object} params the hash of the parameters to pass to the request
         @option params {String} email an email address to add to the whitelist
+        @option params {String} comment an optional description of why the email was whitelisted
         @param {Function} onsuccess an optional callback to execute when the API call is successfully made
         @param {Function} onerror an optional callback to execute when the API call errors out - defaults to throwing the error as an exception
     */
 
 
     Whitelists.prototype.add = function(params, onsuccess, onerror) {
+      var _ref;
       if (params == null) {
         params = {};
       }
@@ -1545,6 +1547,9 @@
         onerror = onsuccess;
         onsuccess = params;
         params = {};
+      }
+      if ((_ref = params["comment"]) == null) {
+        params["comment"] = null;
       }
       return this.master.call('whitelists/add', params, onsuccess, onerror);
     };
