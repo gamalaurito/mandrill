@@ -1005,7 +1005,7 @@ class m.Messages
         @master.call('messages/send-raw', params, onsuccess, onerror)
 
     ###
-    Queries your scheduled emails by sender or recipient, or both.
+    Queries your scheduled emails.
     @param {Object} params the hash of the parameters to pass to the request
     @option params {String} to an optional recipient address to restrict results to
     @param {Function} onsuccess an optional callback to execute when the API call is successfully made
@@ -1725,7 +1725,7 @@ account, it will be added automatically.
 
     ###
     Sends a verification email in order to verify ownership of a domain.
-Domain verification is an optional step to confirm ownership of a domain. Once a
+Domain verification is a required step to confirm ownership of a domain. Once a
 domain has been verified in a Mandrill account, other accounts may not have their
 messages signed by that domain unless they also verify the domain. This prevents
 other Mandrill accounts from sending mail signed by your domain.
